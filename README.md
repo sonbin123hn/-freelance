@@ -1,65 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Install Laradock (Ubuntu)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Clone this repository anywhere on your machine
 
-## About Laravel
+git clone https://github.com/laradock/laradock.git
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Make sure the APP_CODE_PATH_HOST variable points to parent directory
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+APP_CODE_PATH_HOST=../ 
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Go to your web server and create config files to point to different project directory when visiting different domains:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+Nginx: nginx/sites.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+Apache2: apache2/sites.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+Laradock by default includes some sample files for you to copy app.conf.example, laravel.conf.example and symfony.conf.example.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+change the default names *.conf:
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+You can rename the config files, project folders and domains as you like, just make sure the root in the config files, is pointing to the correct project folder name.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# -freelance
+You can change server_name in the config file like the server name in the hosts file /etc/hosts. And change the root path like root /var/www/{folder_name}/public;
+
+
+
+Add the domains to the hosts files.
+
+Location file hosts: /etc/hosts
+
+127.0.0.1  project-1.test  project-2.test...
+
+
+Enter the laradock folder and copy .env.example to .env
+
+
+cp .env.example .env
+
+
+Run your containers:
+
+(sudo) docker-compose up -d nginx mysql phpmyadmin redis workspace 
+
+
+Restarts all stopped and running services:
+
+(sudo) docker-compose restart
+
+
+Enter the workspace container
+
+(sudo) docker-compose exec workspace bash
+
+Source: https://laradock.io/getting-started/
+
+Setup project iLive (iLive Admin)
+
+Copy .env.example to .env
+
+
+cp .env.example .env
+
+
+Open your project's .env file and set the following:
+
+DB_HOST=mysql  REDIS_HOST=redis QUEUE_HOST=beanstalkd
+DB_DATABASE=default DB_USERNAME=root DB_PASSWORD=root
+
+
+Generate app key
+
+php artisan key:genInstall Laradock (Ubuntu)
+
+Clone this repository anywhere on your machine
+
+git clone https://github.com/laradock/laradock.git
+
+
+Make sure the APP_CODE_PATH_HOST variable points to parent directory
+
+APP_CODE_PATH_HOST=../ 
+
+
+Go to your web server and create config files to point to different project directory when visiting different domains:
+
+
+Nginx: nginx/sites.
+
+
+Apache2: apache2/sites.
+
+
+Laradock by default includes some sample files for you to copy app.conf.example, laravel.conf.example and symfony.conf.example.
+
+
+
+change the default names *.conf:
+
+
+You can rename the config files, project folders and domains as you like, just make sure the root in the config files, is pointing to the correct project folder name.
+
+
+You can change server_name in the config file like the server name in the hosts file /etc/hosts. And change the root path like root /var/www/{folder_name}/public;
+
+
+
+Add the domains to the hosts files.
+
+Location file hosts: /etc/hosts
+
+127.0.0.1  project-1.test  project-2.test...
+
+
+Enter the laradock folder and copy .env.example to .env
+
+
+cp .env.example .env
+
+
+Run your containers:
+
+(sudo) docker-compose up -d nginx mysql phpmyadmin redis workspace 
+
+
+Restarts all stopped and running services:
+
+(sudo) docker-compose restart
+
+
+Enter the workspace container
+
+(sudo) docker-compose exec workspace bash
+
+Source: https://laradock.io/getting-started/
+
+Setup project iLive (iLive Admin)
+
+Copy .env.example to .env
+
+
+cp .env.example .env
+
+
+Open your project's .env file and set the following:
+
+DB_HOST=mysql  REDIS_HOST=redis QUEUE_HOST=beanstalkd
+DB_DATABASE=default DB_USERNAME=root DB_PASSWORD=root
+
+
+Generate app key
+
+php artisan key:gen
