@@ -35,7 +35,7 @@ trait APIResponse
     /**
      * @param mixed $message
      */
-    public function responseError($message = [], int $status = HTTPStatus::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
+    public function responseError($message = [], int $status = HTTPStatus::HTTP_BAD_REQUEST): JsonResponse
     {
         return Response::json([
             'message' => $message,
