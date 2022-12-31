@@ -54,11 +54,11 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (NotFoundHttpException $e) {
-            return $this->responseError('error.not_found', Response::HTTP_NOT_FOUND);
+            return $this->responseError('not_found', Response::HTTP_NOT_FOUND);
         });
 
         $this->renderable(function (ModelNotFoundException $e) {
-            return $this->responseError('error.not_found', Response::HTTP_NOT_FOUND);
+            return $this->responseError('not_found', Response::HTTP_NOT_FOUND);
         });
 
         $this->renderable(function (ValidationException $e) {
@@ -68,7 +68,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Throwable $e) {
             Log::debug(now() . ' > ' . $e->getMessage() . ' > '. \request()->url());
-            return $this->responseError('error.process_failed', Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->responseError('process_failed', Response::HTTP_INTERNAL_SERVER_ERROR);
         });
 
     }
