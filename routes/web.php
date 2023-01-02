@@ -15,9 +15,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//employee
+Route::get('admin/employee', [App\Http\Controllers\HomeController::class, 'employees']);
+Route::get('admin/employee/add',[App\Http\Controllers\HomeController::class, 'create'])->name('admin.employee.create');
+Route::post('admin/employee/add',[App\Http\Controllers\HomeController::class, 'store'])->name('admin.employee.store');
+Route::get('admin/employee/update/{id}',[App\Http\Controllers\HomeController::class, 'edit'])->name('admin.employee.edit');
+Route::post('admin/employee/update/{id}',[App\Http\Controllers\HomeController::class, 'update'])->name('admin.employee.update');
+Route::get('admin/employee/lock/{id}',[App\Http\Controllers\HomeController::class, 'lock'])->name('admin.employee.lock');
+
+//user
+Route::get('admin/users', [App\Http\Controllers\HomeController::class, 'users']);
+
+//loan contract
+Route::get('admin/contracts', [App\Http\Controllers\HomeController::class, 'contracts']);
+Route::get('admin/contract/update/{id}',[App\Http\Controllers\HomeController::class, 'editContract'])->name('admin.contract.edit');
+Route::post('admin/contract/update/{id}',[App\Http\Controllers\HomeController::class, 'updateContract'])->name('admin.contract.update');

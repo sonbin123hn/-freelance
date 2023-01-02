@@ -11,15 +11,8 @@ class Employee extends Model
 
     protected $fillable = [
         'id',
-        'user_receive',
-        'user_pay',
-        'status',
-        'amount',
-        'amount_total',
-        'percent',
-        'month_pay',
-        'date_pay',
-        'parent_id',
+        'link',
+        'active',
         'created_at',
         'updated_at'
     ];
