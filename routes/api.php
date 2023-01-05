@@ -16,15 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
 
 Route::group([
     'middleware' => 'auth:api',
 ], function ($router) {
-    Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'userProfile']);
     Route::get('/loan/list', [ApiController::class, 'listLoan']);
     Route::post('/loan/create', [ApiController::class, 'createLoan']);
     Route::post('/user/ekyc', [ApiController::class, 'ekyc']);
+    Route::post('/user/cmnd', [ApiController::class, 'cmnd']);
+
 
 });

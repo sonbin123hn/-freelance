@@ -1,0 +1,12 @@
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^domain.ma/admin$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.domain.ma/admin$
+
+# Exclude directory from rewriting
+RewriteRule ^ressource - [L]
+
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/pureplantessentials\.html$

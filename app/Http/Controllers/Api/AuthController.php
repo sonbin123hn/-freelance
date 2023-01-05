@@ -12,15 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-     /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
-
     /**
      * Get a JWT via given credentials.
      *
@@ -39,9 +30,10 @@ class AuthController extends Controller
         if (! $token = auth('api')->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
+        
         return response()->json([
             "status" => 200,
+            "data" => auth('api')->user(),
             "message" => "Logged in successfully",
             "access_token" => $token
         ]);
@@ -83,15 +75,5 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'User successfully signed out']);
-    }
-
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function userProfile() {
-        return $this->responseSuccessWithData(auth()->user());
     }
 }

@@ -40,7 +40,24 @@ class ApiController extends Controller
     public function ekyc(EKYCRequest $request)
     {
         $user = User::find(auth()->user()->id);
-
+        $data = $request->only(
+            "idFront",
+            "idBack",
+            "face",
+            "userName",
+            "cccd",
+            "sex",
+            "birth",
+            "bankUserName",
+            "bankAccount",
+            "bank",
+            "salary",
+            "reason",
+            "address",
+            "job",
+            "relationship",
+            "phoneNumberRelaxtionship"
+        );
         $idFront = $request->idFront;
         $idBack = $request->idBack;
         $face = $request->face;
@@ -77,4 +94,14 @@ class ApiController extends Controller
             abort(402, 'Upload fails.');
         }
     }
+
+    public function cmnd(Request $request)
+    {
+        $cccd = User::where('cccd',$request->cccd)->first();
+        if($cccd){
+            return $this->responseSuccess("CCCD/CMND đã được sử dụng");
+        }
+        return $this->responseSuccess("");
+    }
+
 }
