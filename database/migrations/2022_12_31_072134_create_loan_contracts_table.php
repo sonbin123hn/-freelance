@@ -19,7 +19,7 @@ class CreateLoanContractsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('loanValue');
             $table->enum('loanTime', [6,12,24,36,48,60]);
-            $table->string('signature');
+            $table->text('signature');
             $table->string('prive');
             $table->bigInteger('userId');
             $table->enum('status', [StatusLoanContracts::PENDING,StatusLoanContracts::CANCEL,StatusLoanContracts::SUCCESS])->default(StatusLoanContracts::PENDING)->nullable();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,25 +45,15 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'phoneNumber' => 'required|regex:/^[0-9]+$/|unique:users',
-            'password' => 'required|string|confirmed|min:6',
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+    public function register(RegisterRequest $request) {
+        $data = $request->all();
 
         $user = User::create(array_merge(
-                    $validator->validated(),
+                    $data,
                     ['password' => bcrypt($request->password)]
                 ));
 
-        return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $user
-        ], 201);
+        return $this->responseSuccessWithData($user);
     }
 
 
@@ -75,5 +66,14 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'User successfully signed out']);
+    }
+
+     /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userProfile() {
+        return $this->responseSuccessWithData(auth()->user());
     }
 }

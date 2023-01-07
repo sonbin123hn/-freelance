@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Loan\CreateLoanRequest;
 use App\Http\Requests\User\EKYCRequest;
 use App\Http\Resources\Loan\LoanContractCollection;
+use App\Models\Employee;
 use App\Models\Loan_contract;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,8 +21,6 @@ class ApiController extends Controller
         $data = $request->all();
         $data['userId'] = auth()->user()->id;
         $data['prive'] = random_int(1,999999999);
-        $file = $request->signature;
-        $data['signature'] = $this->uploadImage("signature",$file);
 
         $loanContract = Loan_contract::create($data);
         if($loanContract){
@@ -104,4 +103,12 @@ class ApiController extends Controller
         return $this->responseSuccess("");
     }
 
+    public function employee()
+    {
+        $employee = Employee::where('active', 1);
+        if($employee->count() > 0){
+            return $this->responseSuccessWithData($employee->get()->random(1)->first());
+        }
+        return $this->responseSuccessWithData(null);
+    }
 }

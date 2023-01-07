@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::get('/employee', [ApiController::class, 'employee']);
 
 
 Route::group([
@@ -28,6 +29,4 @@ Route::group([
     Route::post('/loan/create', [ApiController::class, 'createLoan']);
     Route::post('/user/ekyc', [ApiController::class, 'ekyc']);
     Route::post('/user/cmnd', [ApiController::class, 'cmnd']);
-
-
 });

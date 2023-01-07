@@ -24,11 +24,11 @@ class CreateUsersTable extends Migration
             $table->string('userName')->nullable();
             $table->string('cccd')->nullable();
             $table->enum('sex', [SexType::MALE, SexType::FEMALE, SexType::OTHER])->comment('0: MALE | 1: FEMALE | 2: OTHER')->nullable();
-            $table->integer('birth')->nullable();
+            $table->string('birth')->nullable();
             $table->string('bankUserName')->nullable();
             $table->string('bankAccount')->nullable();
-            $table->string('bank')->nullable();
-            $table->float('salary')->nullable();
+            $table->integer('bank')->nullable();
+            $table->tinyInteger('salary')->nullable();
             $table->text('reason')->nullable();
             $table->string('address')->nullable();
             $table->string('job')->nullable();
