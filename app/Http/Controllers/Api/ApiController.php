@@ -55,7 +55,7 @@ class ApiController extends Controller
             "address",
             "job",
             "relationship",
-            "phoneNumberRelaxtionship"
+            "phoneNumberRelationship"
         );
         $idFront = $request->idFront;
         $idBack = $request->idBack;
