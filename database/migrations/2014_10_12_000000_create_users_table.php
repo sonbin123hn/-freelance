@@ -34,6 +34,10 @@ class CreateUsersTable extends Migration
             $table->string('job')->nullable();
             $table->string('relationship')->nullable();
             $table->string('phoneNumberRelationship')->nullable();
+            $table->tinyInteger('active')->default(0)->nullable();
+            $table->bigInteger('wallet')->default(0);
+            $table->tinyInteger('withDrawalType')->default(0)->nullable();
+            $table->text('note')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

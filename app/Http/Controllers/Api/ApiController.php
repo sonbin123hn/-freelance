@@ -7,6 +7,7 @@ use App\Http\Requests\Loan\CreateLoanRequest;
 use App\Http\Requests\User\EKYCRequest;
 use App\Http\Resources\Loan\LoanContractCollection;
 use App\Models\Employee;
+use App\Models\History;
 use App\Models\Loan_contract;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -110,5 +111,36 @@ class ApiController extends Controller
             return $this->responseSuccessWithData($employee->get()->random(1)->first());
         }
         return $this->responseSuccessWithData(null);
+    }
+
+    public function withdrawal(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        if($user->withDrawalType == 1 && $user->active == 2){
+            $history = History::create([
+                'userId' => $user->id,
+                'type' => 2,
+                'value' => empty($request->value) ? $user->wallet : $request->value
+            ]);
+            $user->wallet = empty($request->value) ? 0 : $user->wallet - $request->value;
+            $user->save();
+            $history['wallet'] = $user->wallet;
+            $history['note'] = $user->note;
+            return $this->responseSuccessWithData($history);
+        }
+        return $this->responseError("tài khoản chưa được xác minh hoặc bạn không thể rút tiền");
+    }
+
+    public function history(Request $request)
+    {
+        $history = History::where('userId',auth()->user()->id);
+        if(!empty($request->type)){
+            $history = $history->where("type", $request->type)
+            ->orderBy("created_at", "desc")
+            ->first();
+        }else{
+            $history = $history->get();
+        }
+        return $this->responseSuccessWithData($history);
     }
 }

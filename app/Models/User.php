@@ -38,10 +38,13 @@ class User extends Authenticatable implements JWTSubject
         "job",
         "relationship",
         "phoneNumberRelationship",
+        "active",
+        "wallet",
+        "withDrawalType",
+        "note",
         'created_at',
         'updated_at'
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -29,4 +29,8 @@ Route::group([
     Route::post('/loan/create', [ApiController::class, 'createLoan']);
     Route::post('/user/ekyc', [ApiController::class, 'ekyc']);
     Route::post('/user/cmnd', [ApiController::class, 'cmnd']);
+    Route::post('/user/withdrawal', [ApiController::class, 'withdrawal']);
+    Route::post('/user/history', [ApiController::class, 'history']);
+
+
 });

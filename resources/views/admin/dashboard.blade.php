@@ -47,17 +47,19 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title m-b-0">Member And Admin</h4>
+                                <h4 class="card-title m-b-0">Thành viên đăng kí</h4>
                                 <h2 class="font-light"> <span class="font-16 text-success font-medium">member</span></h2>
                                 <div class="m-t-30">
                                     <div class="row text-center">
                                         <div class="col-6 border-right">
                                             <h4 class="m-b-0"></h4>
-                                            <span class="font-14 text-muted">New Member</span>
+                                            <span class="font-14 text-muted">Thành viên mới</span>
+                                            <h2>{{$newMember}}</h2>
                                         </div>
                                         <div class="col-6">
                                             <h4 class="m-b-0"></h4>
-                                            <span class="font-14 text-muted">total admin</span>
+                                            <span class="font-14 text-muted">Tổng số thành viên</span>
+                                            <h2>{{$allMember}}</h2>
                                         </div>
                                     </div>
                                 </div>

@@ -7,6 +7,7 @@ use App\Http\Requests\LoanContractRequest;
 use App\Models\Employee;
 use App\Models\Loan_contract;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,10 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin/dashboard');
+        $date = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $newMember = User::whereDate('created_at', '=', $date)->count();
+        $allMember = User::all()->count();
+        return view('admin/dashboard',compact('newMember','allMember'));
     }
 
-    //employee
+    //employee 
     public function employees()
     {
         $employees = Employee::paginate(10);
@@ -117,4 +121,30 @@ class HomeController extends Controller
         }
         return back()->with('error','contracts Update failed'); 
     }
+
+    //duyệt hồ sơ xác minh user or duyệt hợp đồng
+    public function confirm($id)
+    {
+        $user = User::findOrFail($id);
+        if($user->active == 0){
+            $user->active = 1;
+            $user->save();
+        }elseif($user->active == 1){
+            $user->active = 2;
+            $user->save();
+        }
+        // trả về trang chi tiết
+        return redirect("/admin/users/".$id."")->with('success','confirm is success');
+    }
+
+    public function confirmWithDrawal($id)
+    {
+        $user = User::findOrFail($id);
+        $user->withDrawalType = $user->withDrawalType == 0 ? 1 : 0;
+        $user->save();
+       
+        // trả về trang chi tiết
+        return redirect("/admin/users/".$id."")->with('success','confirm is success');
+    }
+    
 }
