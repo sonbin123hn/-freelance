@@ -14,7 +14,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('/admin/employee')}}" aria-expanded="false">
                                 <i class="fa fa-users"></i>
-                                <span class="hide-menu">Employee Management</span>
+                                <span class="hide-menu">Nhân Viên</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -26,7 +26,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('/admin/users')}}" aria-expanded="false">
                                 <i class="mdi mdi-clipboard-account"></i>
-                                <span class="hide-menu">User Management</span>
+                                <span class="hide-menu">Khách hàng</span>
                             </a>
                         </li>
                     </ul>

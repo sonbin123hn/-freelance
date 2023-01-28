@@ -95,7 +95,28 @@ class HomeController extends Controller
     public function users()
     {
         $users = User::paginate(10);
+        // echo '<pre>';
+        // var_dump($users);die;
         return view("admin/user/index",compact('users'));
+    }
+
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+        if(empty($user)){
+            return redirect('admin/users')->with('error','Không tìm thấy khách hàng');
+        }
+        
+        return view("admin/user/edit",compact('user'));
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        if($user->delete()){
+            return redirect('admin/users')->with('success','Xóa khách hàng thành công');
+        }
+        return back()->with('error','Xóa khách hàng thất bại');
     }
 
     //loan contracts

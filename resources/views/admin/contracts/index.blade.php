@@ -27,7 +27,7 @@
         @if(session('success'))
         <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> Notification!</h4>
+            <h4><i class="icon fa fa-check"></i> Thành công</h4>
             {{session('success')}}
         </div>
         @endif
@@ -52,7 +52,7 @@
                     <td>{{$value['loanTime']}}</td>
                     <td><img src="{{$value['signature']}}" width="100" /></td>
                     <td>{{$value['prive']}}</td>
-                    <td>{{$value['user']->userName ?? $value['user']->phoneNumber}}</td>
+                    <td>{{$value['user']->userName ?? ($value['user']->phoneNumber ?? '')}}</td>
                     @if($value['status'] == 0)
                     <td>Pending</td>
                     @elseif($value['status'] == 1)

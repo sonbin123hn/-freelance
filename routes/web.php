@@ -32,6 +32,8 @@ Route::get('admin/employee/lock/{id}',[App\Http\Controllers\HomeController::clas
 
 //user
 Route::get('admin/users', [App\Http\Controllers\HomeController::class, 'users']);
+Route::get('admin/edit-user/{id}', [App\Http\Controllers\HomeController::class, 'editUser'])->name('admin.edit.user');;
+Route::get('admin/delete-user/{id}', [App\Http\Controllers\HomeController::class, 'deleteUser'])->name('admin.delete.user');
 
 //loan contract
 Route::get('admin/contracts', [App\Http\Controllers\HomeController::class, 'contracts']);

@@ -4,7 +4,7 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
-            <h4 class="page-title">employee Management</h4>
+            <h4 class="page-title">Nhân Viên</h4>
         </div>
         <div class="col-7 align-self-center">
             <div class="d-flex align-items-center justify-content-end">
@@ -13,7 +13,7 @@
                         <li class="breadcrumb-item">
                             Home
                         </li>
-                        <li class="breadcrumb-item" aria-current="page">employee Management</li>
+                        <li class="breadcrumb-item" aria-current="page">Nhân Viên</li>
                         <li class="breadcrumb-item" aria-current="page">Edit</li>
                     </ol>
                 </nav>
