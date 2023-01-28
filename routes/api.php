@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/employee', [ApiController::class, 'employee']);
 
 
 Route::group([
@@ -31,6 +30,7 @@ Route::group([
     Route::post('/user/cmnd', [ApiController::class, 'cmnd']);
     Route::post('/user/withdrawal', [ApiController::class, 'withdrawal']);
     Route::post('/user/history', [ApiController::class, 'history']);
+    Route::get('/employee', [ApiController::class, 'employee']);
 
 
 });
