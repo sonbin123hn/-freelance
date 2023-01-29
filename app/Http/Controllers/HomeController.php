@@ -7,9 +7,11 @@ use App\Http\Requests\LoanContractRequest;
 use App\Models\Employee;
 use App\Models\Loan_contract;
 use App\Models\User;
+use App\Models\UserEmployee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -32,8 +34,21 @@ class HomeController extends Controller
     {
         $date = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $newMember = User::whereDate('created_at', '=', $date)->count();
+        $userNotActive = User::where('active',0)->count();
+        $userActive = User::where('active',1)->count();
+        $userActiveContract = User::where('active',2)->count();
+
         $allMember = User::all()->count();
-        return view('admin/dashboard',compact('newMember','allMember'));
+        $range = Carbon::now()->subDays(30);
+        $stats = User::where('created_at', '>=', $range)
+        ->groupBy('date')
+        ->orderBy('date', 'ASC')
+        ->get([
+            DB::raw('Date(created_at) as date'),
+            DB::raw('COUNT(*) as value')
+        ])->toJSON();
+        
+        return view('admin/dashboard',compact('newMember','allMember','stats','userActiveContract','userActive','userNotActive'));
     }
 
     //employee 
@@ -52,9 +67,9 @@ class HomeController extends Controller
     {
         $data = $request->all();
         if(Employee::create($data)){
-             return redirect('/admin/employee')->with('success','employee successfully created');
+             return redirect('/admin/employee')->with('success','Thêm nhân viên thành công');
         }
-        return back()->with('error','employee create failed'); 
+        return back()->with('error','Thêm nhân viên thất bại'); 
 
     }
 
@@ -82,13 +97,23 @@ class HomeController extends Controller
         if($data['active'] == 2){
             $data['active'] = 1;
             if($data->update()){
-                return redirect('/admin/employee')->with('success','unlock is success');
+                return redirect('/admin/employee')->with('success','Mở khóa thành công');
             }
         }
         $data['active'] = 2;
         if($data->update()){
-            return redirect('/admin/employee')->with('success','lock is success');
+            return redirect('/admin/employee')->with('success','Khóa thành công');
         };
+    }
+
+    public function deleteEmployee($id)
+    {
+        $data = Employee::findOrFail($id);
+        UserEmployee::where('employeeId',$id)->delete();
+        if($data->delete()){
+            return redirect('/admin/employee')->with('success','Xóa nhân viên thành công');
+        }
+        return redirect('/admin/employee')->with('error','Xóa không thành công');
     }
 
     //user
@@ -167,5 +192,6 @@ class HomeController extends Controller
         // trả về trang chi tiết
         return redirect("/admin/users/".$id."")->with('success','confirm is success');
     }
+    
     
 }

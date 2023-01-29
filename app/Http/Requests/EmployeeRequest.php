@@ -25,13 +25,17 @@ class EmployeeRequest extends FormRequest
     {
         return [
             "link" => 'required',
+            "name" => 'required',
+            "type" => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'link.required' => "link is required",
+            'link.required' => "Đường dẫn chưa được nhập",
+            'name.required' => "Tên chưa được nhập",
+            'type.required' => "Loại chưa được nhập",
         ];
     }
 }

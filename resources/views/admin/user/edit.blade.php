@@ -113,7 +113,7 @@
                                 <p class="m-0 pt-1 font-size-14">Thu nhập</p>
                             </div>
                             <div class="col-8">
-                                <input type="text" name="name" value="" placeholder="Please enter service " class="form-control form-control-line max-height-25">
+                                <input type="text" name="name" value="" placeholder="Đường dẫn facebook/zalo " class="form-control form-control-line max-height-25">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -186,8 +186,8 @@
 @endsection
 @section('footer')
 <footer class="footer text-center">
-    All Rights Reserved by Nice admin. Designed and Developed by
-    <a href="">STK</a>.
+    Việt thành
+    
 </footer>
 @endsection
 @section('script')

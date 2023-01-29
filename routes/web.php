@@ -29,6 +29,8 @@ Route::post('admin/employee/add',[App\Http\Controllers\HomeController::class, 's
 Route::get('admin/employee/update/{id}',[App\Http\Controllers\HomeController::class, 'edit'])->name('admin.employee.edit');
 Route::post('admin/employee/update/{id}',[App\Http\Controllers\HomeController::class, 'update'])->name('admin.employee.update');
 Route::get('admin/employee/lock/{id}',[App\Http\Controllers\HomeController::class, 'lock'])->name('admin.employee.lock');
+Route::get('admin/employee/delete/{id}',[App\Http\Controllers\HomeController::class, 'deleteEmployee'])->name('admin.employee.delete');
+
 
 //user
 Route::get('admin/users', [App\Http\Controllers\HomeController::class, 'users']);

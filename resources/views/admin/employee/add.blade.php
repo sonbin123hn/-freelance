@@ -11,10 +11,10 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            Home
+                            Trang chủ
                         </li>
-                        <li class="breadcrumb-item" aria-current="page">Basic Table</li>
-                        <li class="breadcrumb-item active" aria-current="page">Add</li>
+                        <li class="breadcrumb-item" aria-current="page">Nhân viên</li>
+                        <li class="breadcrumb-item active" aria-current="page">Thêm nhân viên</li>
                     </ol>
                 </nav>
             </div>
@@ -50,25 +50,52 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label class="col-md-12">Link facebook</label>
+                    <label class="col-md-12">Đường dẫn</label>
                     <div class="col-md-12">
-                        <input type="text" name="link" placeholder="link facebook" class="form-control form-control-line">
+                        <input type="text" name="link" placeholder="Đường dẫn facebook/zalo" class="form-control form-control-line">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="col-md-12">Tên nhân viên</label>
+                    <div class="col-md-12">
+                        <input type="text" name="name" placeholder="Tên nhân viên" class="form-control form-control-line">
                     </div>
                 </div>
             </div>
         </div>
 
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <button class="btn btn-success">Add Employee</button>
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label class="col-sm-12">Chọn loại</label>
+                    <div class="col-sm-12">
+                        <select class="form-control form-control-line" name="type">
+                            <option value="">-- Loại --</option>
+                            <option value="1">faceBook</option>
+                            <option value="2">zalo</option>
+
+                        </select>
+                    </div>
                 </div>
             </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button class="btn btn-success">Thêm nhân viên</button>
+            </div>
+        </div>
     </form>
 </div>
 @endsection
 @section('footer')
 <footer class="footer text-center">
-    All Rights Reserved by Nice admin. Designed and Developed by
-    <a href="">STK</a>.
+    Việt thành
+    
 </footer>
 @endsection

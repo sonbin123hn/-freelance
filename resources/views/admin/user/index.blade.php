@@ -75,8 +75,8 @@
 @endsection
 @section('footer')
 <footer class="footer text-center">
-    All Rights Reserved by Nice admin. Designed and Developed by
-    <a href="">STK</a>.
+    Việt thành
+    
 </footer>
 @endsection
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
