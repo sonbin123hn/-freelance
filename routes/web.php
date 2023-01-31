@@ -36,6 +36,9 @@ Route::get('admin/employee/delete/{id}',[App\Http\Controllers\HomeController::cl
 Route::get('admin/users', [App\Http\Controllers\HomeController::class, 'users']);
 Route::get('admin/edit-user/{id}', [App\Http\Controllers\HomeController::class, 'editUser'])->name('admin.edit.user');;
 Route::get('admin/delete-user/{id}', [App\Http\Controllers\HomeController::class, 'deleteUser'])->name('admin.delete.user');
+Route::post('/home',[App\Http\Controllers\HomeController::class, 'changePass'])->name('admin.change-pass');
+Route::get('/admin/ajax-active/{active}',[App\Http\Controllers\HomeController::class, 'ajaxActive']);
+
 
 //loan contract
 Route::get('admin/contracts', [App\Http\Controllers\HomeController::class, 'contracts']);

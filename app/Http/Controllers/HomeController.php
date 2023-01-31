@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePassRequest;
 use App\Http\Requests\EmployeeRequest;
 use App\Http\Requests\LoanContractRequest;
+use App\Models\Admin;
 use App\Models\Employee;
 use App\Models\Loan_contract;
 use App\Models\User;
@@ -12,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -86,9 +89,9 @@ class HomeController extends Controller
         $data = $request->all();
       
         if($employee->update($data)){
-            return redirect('/admin/employee')->with('success','employee Update is success');
+            return redirect('/admin/employee')->with('success','Cập nhật nhân viên thành công');
         }
-        return back()->with('error','employee Update failed'); 
+        return back()->with('error','cập nhật nhân viên thất bại'); 
     }
     
     public function lock($id)
@@ -119,9 +122,13 @@ class HomeController extends Controller
     //user
     public function users()
     {
-        $users = User::paginate(10);
-        // echo '<pre>';
-        // var_dump($users);die;
+        if(session()->has('active')) {
+            $active = session()->get('active');
+            $users = User::where('active',$active)->paginate(10);
+            session()->forget('active');
+        }else{
+            $users = User::paginate(10);
+        }
         return view("admin/user/index",compact('users'));
     }
 
@@ -193,5 +200,20 @@ class HomeController extends Controller
         return redirect("/admin/users/".$id."")->with('success','confirm is success');
     }
     
+    public function changePass(ChangePassRequest $request)
+    {
+        $user = Admin::findOrFail(auth()->user()->id);
+        if (Hash::check($request->password_old,$user->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return back()->with('success','cập nhật mật khẩu thành công');
+        }
+        return back()->with('error','mật khẩu cũ không đúng'); 
+    }
     
+    public function ajaxActive($active)
+    {
+        session()->put('active', $active);
+        echo $active;
+    }
 }

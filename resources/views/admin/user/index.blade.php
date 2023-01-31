@@ -31,6 +31,13 @@
             {{session('success')}}
         </div>
         @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Thông báo!</h4>
+                {{session('error')}}
+            </div>
+        @endif
         <!-- hien thi loi request -->
         @if(session('error'))
         <div class="alert alert-danger alert-dismissible">
@@ -41,6 +48,28 @@
             </ul>
         </div>
         @endif
+        <div>
+        <form name="formRadio">
+            <label for="exampleInputPassword1">Tình trạng :</label>
+            <div class="col-10 float-right">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="radioButton" id="inlineRadio" value="0">
+                    <label class="form-check-label" for="inlineRadio3">Chưa xác minh</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="radioButton" id="inlineRadio" value="1">
+                    <label class="form-check-label" for="inlineRadio4">Đã xác minh</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="radioButton" id="inlineRadio" value="2">
+                    <label class="form-check-label" for="inlineRadio4">Đã tạo hồ sơ</label>
+                </div>
+            </div>
+        </form>
+        <h2 id="ketqua" style="display: none;"></h2>
+
+    </div>
+</div>
         <table class="table">
             <thead>
                 <tr>
@@ -79,4 +108,39 @@
     
 </footer>
 @endsection
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+@section('script')
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.form-check-input').click(function(){
+        var typeActive = $(this).val();
+        if (typeActive == "") {
+            $(".table").hide();
+        } else {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: "GET",
+                url: '/admin/ajax-active/'+typeActive+'',
+                data: {
+                    active: typeActive
+                },
+                success: function(data) {
+                    if(data != ""){
+                        $(".table").show();
+                        location.reload();
+                    }else{
+                        $(".table").hide();
+                    }
+                }
+            })
+        }
+    })
+    
+})
+</script>
+@endsection

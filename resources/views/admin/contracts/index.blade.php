@@ -31,6 +31,13 @@
             {{session('success')}}
         </div>
         @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Thông báo!</h4>
+                {{session('error')}}
+            </div>
+        @endif
         <table class="table">
             <thead>
                 <tr>
