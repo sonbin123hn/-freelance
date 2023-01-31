@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Models\History;
+
 
 class HomeController extends Controller
 {
@@ -135,11 +137,22 @@ class HomeController extends Controller
     public function editUser($id)
     {
         $user = User::findOrFail($id);
+        $listContracts = Loan_contract::where('userId',$id)->get();
+        $listHistory = History::where('userId',$id)->orderBy("created_at", "desc")->limit(10)->get();
         if(empty($user)){
             return redirect('admin/users')->with('error','Không tìm thấy khách hàng');
         }
-        
-        return view("admin/user/edit",compact('user'));
+        return view("admin/user/edit",compact('user','listContracts','listHistory'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $data = $request->all();
+        if($user->update($data)){
+            return back()->with('success','Cập nhập thành công');
+        }
+        return back()->with('error','Đã xảy ra lỗi vui lòng quay lại sau'); 
     }
 
     public function deleteUser($id)
@@ -164,15 +177,24 @@ class HomeController extends Controller
         return view("admin/contracts/edit",compact('contracts'));
     }
 
-    public function updateContract(LoanContractRequest $request, $id)
+    public function updateContract(LoanContractRequest $request)
     {
+        $id = $request['id'];
         $contracts = Loan_contract::findOrFail($id);
-        $data = $request->all();
-      
+        $data = $request->only("status");
         if($contracts->update($data)){
-            return redirect('/admin/contracts')->with('success','contracts Update is success');
+            History::create([
+                'userId' => $contracts->userId,
+                'type' => 1,
+                'value' =>  $contracts->loanValue
+            ]);
+            $user = User::findOrFail($contracts->userId);
+            $wallet = $user->wallet +$contracts->loanValue;
+            $dataUser = ['wallet'=> $wallet];
+            $user->update($dataUser);
+            return ['status' => true];
         }
-        return back()->with('error','contracts Update failed'); 
+        return ['status' => false];
     }
 
     //duyệt hồ sơ xác minh user or duyệt hợp đồng

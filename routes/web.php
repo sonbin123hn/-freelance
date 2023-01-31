@@ -34,7 +34,8 @@ Route::get('admin/employee/delete/{id}',[App\Http\Controllers\HomeController::cl
 
 //user
 Route::get('admin/users', [App\Http\Controllers\HomeController::class, 'users']);
-Route::get('admin/edit-user/{id}', [App\Http\Controllers\HomeController::class, 'editUser'])->name('admin.edit.user');;
+Route::get('admin/edit-user/{id}', [App\Http\Controllers\HomeController::class, 'editUser'])->name('admin.edit.user');
+Route::post('admin/update-user/{id}', [App\Http\Controllers\HomeController::class, 'updateUser'])->name('admin.update.user');
 Route::get('admin/delete-user/{id}', [App\Http\Controllers\HomeController::class, 'deleteUser'])->name('admin.delete.user');
 Route::post('/home',[App\Http\Controllers\HomeController::class, 'changePass'])->name('admin.change-pass');
 Route::get('/admin/ajax-active/{active}',[App\Http\Controllers\HomeController::class, 'ajaxActive']);
@@ -43,4 +44,4 @@ Route::get('/admin/ajax-active/{active}',[App\Http\Controllers\HomeController::c
 //loan contract
 Route::get('admin/contracts', [App\Http\Controllers\HomeController::class, 'contracts']);
 Route::get('admin/contract/update/{id}',[App\Http\Controllers\HomeController::class, 'editContract'])->name('admin.contract.edit');
-Route::post('admin/contract/update/{id}',[App\Http\Controllers\HomeController::class, 'updateContract'])->name('admin.contract.update');
+Route::post('admin/contract/update',[App\Http\Controllers\HomeController::class, 'updateContract'])->name('admin.contract.update');
