@@ -124,7 +124,7 @@ class HomeController extends Controller
     {
         if(session()->has('active')) {
             $active = session()->get('active');
-            $users = User::where('active',$active)->paginate(10);
+            $users = User::where('active',$active)->paginate(5);
             session()->forget('active');
         }else{
             $users = User::paginate(10);

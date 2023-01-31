@@ -61,9 +61,9 @@
                     <td> <a href="">{{$value['link']}}</a></td>
                     <td>
                         @if($value['type'] == 1)
-                        zalo
+                        <img style="width: 30px;" src="/uploads/icons8-zalo-50.png" alt="">
                         @else
-                        <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                        <i style="font-size: 30px;" class="fa fa-facebook-official" aria-hidden="true"></i>
                         @endif
                     </td>
                     
@@ -81,9 +81,8 @@
             </tbody>
         </table>
         Bạn đang ở trên trang {{$employees->currentPage()}}
-        <a style="font-size: 20px;margin-right: 20px;" href="{{$employees->previousPageUrl()}}" id="previousPagebtn">
-        </a> <a style="font-size: 20px;" href="{{$employees->nextPageUrl()}}" id="nextPagebtn">>
-        </a>
+        <a style="font-size: 20px;margin-right: 20px;" href="{{$employees->previousPageUrl()}}" id="previousPagebtn"> < </a>
+        <a style="font-size: 20px;" href="{{$employees->nextPageUrl()}}" id="nextPagebtn"> > </a>
     </div>
 
 </div>

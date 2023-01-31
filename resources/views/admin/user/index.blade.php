@@ -95,9 +95,9 @@
                 @endforeach
             </tbody>
         </table>
-        You are on page {{$users->currentPage()}}
-        <a style="font-size: 20px;margin-right: 20px;" href="{{$users->previousPageUrl()}}" id="previousPagebtn">
-        </a> <a style="font-size: 20px;" href="{{$users->nextPageUrl()}}" id="nextPagebtn"></a>
+        Bạn đang ở trên trang {{$users->currentPage()}}
+        <a style="font-size: 20px;margin-right: 20px;" href="{{$users->previousPageUrl()}}" id="previousPagebtn"> < </a>
+        <a style="font-size: 20px;" href="{{$users->nextPageUrl()}}" id="nextPagebtn"> > </a>
     </div>
 
 </div>
@@ -105,7 +105,7 @@
 @section('footer')
 <footer class="footer text-center">
     Việt thành
-    
+
 </footer>
 @endsection
 
