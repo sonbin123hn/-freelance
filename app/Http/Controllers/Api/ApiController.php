@@ -66,6 +66,7 @@ class ApiController extends Controller
         $data['idFront'] = $this->uploadImage("user" . $user->userName ?? $user->phoneNumber . "", $idFront);
         $data['idBack'] = $this->uploadImage("user" . $user->userName ?? $user->phoneNumber . "", $idBack);
         $data['face'] = $this->uploadImage("user" . $user->userName ?? $user->phoneNumber . "", $face);
+        $data['active'] = 1;
 
         if ($user->update($data)) {
             return $this->responseSuccessWithData($user);

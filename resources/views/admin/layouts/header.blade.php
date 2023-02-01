@@ -16,7 +16,7 @@
                                 <!-- Dark Logo icon -->
                                 <img src="{{ asset('admin/assets/images/logo-icon.png')}}" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo icon -->
-                                <img src="https://img.icons8.com/cotton/64/0000000/cat--v4.png" alt="homepage" class="light-logo" />
+                                <!-- <img src="https://baobivietthanh.com/wp-content/uploads/2018/06/logo-bao-bi-viet-thanh-1.png" alt="homepage" class="light-logo" /> -->
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
@@ -24,7 +24,7 @@
                                 <!-- dark Logo text -->
                                 <img src="{{ asset('admin/assets/images/logo-text.png')}}" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo text -->
-                                <img src="{{ asset('admin/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" />
+                                <!-- <img src="{{ asset('admin/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /> -->
                             </span>
                         </a>
                     </div>
@@ -50,7 +50,7 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item search-box">
+                        <!-- <li class="nav-item search-box">
                             <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
                                 <div class="d-flex align-items-center">
                                     <i class="mdi mdi-magnify font-20 mr-1"></i>
@@ -65,7 +65,7 @@
                                     <i class="ti-close"></i>
                                 </a>
                             </form>
-                        </li>
+                        </li> -->
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->

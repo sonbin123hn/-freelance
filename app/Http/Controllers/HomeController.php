@@ -124,12 +124,13 @@ class HomeController extends Controller
     //user
     public function users(Request $request)
     {
-       
+        Carbon::setLocale('vi');
         $active = $request['active'] ?? '';
         $userName = $request['userName'] ?? '';
         $phoneNumber = $request['phoneNumber'] ?? '';
         $users = User::select('*');
-        if($active !=''){
+
+        if($active != ''){
             $users = $users->where('active',$active);
         }
 
@@ -140,8 +141,7 @@ class HomeController extends Controller
         if(!empty($phoneNumber)){
             $users = $users->where('phoneNumber','like','%'.$phoneNumber.'%');
         }
-        $users = $users->orderBy('active', 'DESC')->paginate(10);
-        session()->forget('active');
+        $users = $users->orderBy('created_at', 'DESC')->paginate(10);
         return view("admin/user/index",compact('users','active','userName','phoneNumber'));
     }
 
@@ -244,9 +244,4 @@ class HomeController extends Controller
         return back()->with('error','mật khẩu cũ không đúng'); 
     }
     
-    public function ajaxActive($active)
-    {
-        session()->put('active', $active);
-        echo $active;
-    }
 }

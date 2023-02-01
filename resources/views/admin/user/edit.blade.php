@@ -91,10 +91,9 @@
                             </div>
                             <div class="col-8">
                                 @php
-                                    $birth = (string) $user->birth;
-                                    $birth = date('Y-m-d', '1673160001');
+                                    $birth = date('Y-m-d', $user->birth);
                                 @endphp
-                                <input type="date" name="birth" value="{{ $birth }}" placeholder="Ngày sinh " class="form-control form-control-line max-height-25">
+                                <input type="date" name="birth" value="{{ $user->birth ? $birth : null }}" placeholder="Ngày sinh " class="form-control form-control-line max-height-25">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -265,7 +264,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">SỐ tiền</th>
+                        <th scope="col">Số tiền</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Thời gian</th>
                     </tr>

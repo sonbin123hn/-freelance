@@ -186,6 +186,8 @@
 </footer>
 @endsection
 @section('scriptt')
+<script src="{{ asset('admin/js/morris.js')}}"></script>
+<script src="{{ asset('admin/js/morris.min.js')}}"></script>
 <script>
  window.onload = function () {
   Morris.Bar({

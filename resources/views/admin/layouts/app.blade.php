@@ -14,7 +14,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://img.icons8.com/cotton/64/0000000/cat--v4.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://baobivietthanh.com/wp-content/uploads/2018/06/logo-bao-bi-viet-thanh-1.png">
     <title>AE Education - Admin</title>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-            <img src="https://img.icons8.com/cotton/64/0000000/cat--v4.png" style="width: 25px;" alt="">
+            <img src="https://baobivietthanh.com/wp-content/uploads/2018/06/logo-bao-bi-viet-thanh-1.png" style="width: 25px;" alt="">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     AE Education- Admin
                 </a>

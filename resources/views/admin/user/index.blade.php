@@ -61,10 +61,10 @@
                 <div class="form-group mx-sm-3 mb-2 d-inline">
                     <label class="my-1 mr-2" for="email">Tình trạng</label>
                     <select class="custom-select mr-sm-2 form-control d-inline"  style="max-width: 200px;" name="active" id="active">
-                        <option>Tình trạng khách hàng</option>
-                        <option value="0" {{ ($active==0) ? 'selected="selected"' : ''}}>Chưa có thông tin</option>
-                        <option value="1" {{ ($active==1) ? 'selected="selected"' : ''}}>Đã có thông tin</option>
-                        <option value="2" {{ ($active==2) ? 'selected="selected"' : ''}}>Đã xác minh danh tính</option>
+                        <option value='' {{ isset($active) ? 'selected="selected"' : ''}} >Tình trạng khách hàng</option>
+                        <option value="0" {{ ($active === 0) ? 'selected="selected"' : ''}}>Chưa có thông tin</option>
+                        <option value="1" {{ ($active == 1) ? 'selected="selected"' : ''}}>Đã có thông tin</option>
+                        <option value="2" {{ ($active == 2) ? 'selected="selected"' : ''}}>Đã xác minh danh tính</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Tìm kiếm</button>
@@ -98,7 +98,7 @@
                             đã xác minh danh tính
                         @endif
                     </td>
-                    <td>{{$value['created_at']->format('H:i:s, d/m/Y')}}</td>
+                    <td>{{$value['created_at']->diffForHumans()}}</td>
                     <td>
                         @if($value['active'] != 0)
                             <a href="{{ route('admin.edit.user', ['id' => $value['id']]) }}"><i style="font-size:22px;margin-right:10px" class="fa">&#xf044;</i></a>

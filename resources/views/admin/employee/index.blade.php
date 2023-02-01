@@ -80,9 +80,7 @@
                 @endforeach
             </tbody>
         </table>
-        Bạn đang ở trên trang {{$employees->currentPage()}}
-        <a style="font-size: 20px;margin-right: 20px;" href="{{$employees->previousPageUrl()}}" id="previousPagebtn"> < </a>
-        <a style="font-size: 20px;" href="{{$employees->nextPageUrl()}}" id="nextPagebtn"> > </a>
+        <div class="pagination-wrapper" style="margin: 0 auto;display: table;"> {!! $employees->fragment('foo')->links('pagination::bootstrap-4') !!} </div>
     </div>
 
 </div>
