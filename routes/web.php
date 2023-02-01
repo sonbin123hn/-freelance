@@ -33,7 +33,7 @@ Route::get('admin/employee/delete/{id}',[App\Http\Controllers\HomeController::cl
 
 
 //user
-Route::get('admin/users', [App\Http\Controllers\HomeController::class, 'users']);
+Route::get('admin/users', [App\Http\Controllers\HomeController::class, 'users'])->name('admin.list.user');;
 Route::get('admin/edit-user/{id}', [App\Http\Controllers\HomeController::class, 'editUser'])->name('admin.edit.user');
 Route::post('admin/update-user/{id}', [App\Http\Controllers\HomeController::class, 'updateUser'])->name('admin.update.user');
 Route::get('admin/delete-user/{id}', [App\Http\Controllers\HomeController::class, 'deleteUser'])->name('admin.delete.user');

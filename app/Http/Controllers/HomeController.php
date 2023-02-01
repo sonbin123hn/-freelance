@@ -122,16 +122,27 @@ class HomeController extends Controller
     }
 
     //user
-    public function users()
+    public function users(Request $request)
     {
-        if(session()->has('active')) {
-            $active = session()->get('active');
-            $users = User::where('active',$active)->paginate(5);
-            session()->forget('active');
-        }else{
-            $users = User::paginate(10);
+       
+        $active = $request['active'] ?? '';
+        $userName = $request['userName'] ?? '';
+        $phoneNumber = $request['phoneNumber'] ?? '';
+        $users = User::select('*');
+        if($active !=''){
+            $users = $users->where('active',$active);
         }
-        return view("admin/user/index",compact('users'));
+
+        if(!empty($userName)){
+            $users = $users->where('userName','like','%'.$userName.'%');
+        }
+
+        if(!empty($phoneNumber)){
+            $users = $users->where('phoneNumber','like','%'.$phoneNumber.'%');
+        }
+        $users = $users->orderBy('active', 'DESC')->paginate(10);
+        session()->forget('active');
+        return view("admin/user/index",compact('users','active','userName','phoneNumber'));
     }
 
     public function editUser($id)

@@ -48,34 +48,37 @@
             </ul>
         </div>
         @endif
-        <div>
-        <form name="formRadio">
-            <label for="exampleInputPassword1">Tình trạng :</label>
-            <div class="col-10 float-right">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radioButton" id="inlineRadio" value="0">
-                    <label class="form-check-label" for="inlineRadio3">Chưa xác minh</label>
+        <div class="card-body bg-white card-body rounded shadow mb-4">
+            <form action="{{ route('admin.list.user')}}" method="get" enctype="multipart/form-data">
+                <div class="form-group mx-sm-3 mb-2 d-inline">
+                    <label class="my-1 mr-2" for="userName">Họ Tên</label>
+                    <input type="text" name="userName" value="{{$userName}}">
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radioButton" id="inlineRadio" value="1">
-                    <label class="form-check-label" for="inlineRadio4">Đã xác minh</label>
+                <div class="form-group mx-sm-3 mb-2 d-inline">
+                    <label class="my-1 mr-2" for="userName">Số điện thoại</label>
+                    <input type="text" name="phoneNumber" value="{{$phoneNumber}}">
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="radioButton" id="inlineRadio" value="2">
-                    <label class="form-check-label" for="inlineRadio4">Đã tạo hồ sơ</label>
+                <div class="form-group mx-sm-3 mb-2 d-inline">
+                    <label class="my-1 mr-2" for="email">Tình trạng</label>
+                    <select class="custom-select mr-sm-2 form-control d-inline"  style="max-width: 200px;" name="active" id="active">
+                        <option>Tình trạng khách hàng</option>
+                        <option value="0" {{ ($active==0) ? 'selected="selected"' : ''}}>Chưa có thông tin</option>
+                        <option value="1" {{ ($active==1) ? 'selected="selected"' : ''}}>Đã có thông tin</option>
+                        <option value="2" {{ ($active==2) ? 'selected="selected"' : ''}}>Đã xác minh danh tính</option>
+                    </select>
                 </div>
-            </div>
-        </form>
-        <h2 id="ketqua" style="display: none;"></h2>
-
+                <button type="submit" class="btn btn-primary mr-2">Tìm kiếm</button>
+            </form>
+        </div>
     </div>
-</div>
+    <div class="card-body bg-white card-body rounded shadow">
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Stt</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Tên</th>
+                    <th scope="col">Tình Trạng</th>
                     <th scope="col">Khởi tạo lúc</th>
                     <th scope="col">Tuỳ chọn</th>
                 </tr>
@@ -86,18 +89,28 @@
                     <th scope="row">{{ Helper::stt($k, $users->currentPage()) }}</th>
                     <td>{{$value['phoneNumber']}}</td>
                     <td>{{$value['userName']}}</td>
+                    <td>
+                        @if($value['active'] == 0)
+                            chưa có thông tin cá nhân
+                        @elseif($value['active'] ==1)
+                            đã có thông tin cá nhân
+                        @elseif($value['active'] ==2)
+                            đã xác minh danh tính
+                        @endif
+                    </td>
                     <td>{{$value['created_at']->format('H:i:s, d/m/Y')}}</td>
                     <td>
-                        <a href="{{ route('admin.edit.user', ['id' => $value['id']]) }}"><i style="font-size:22px;margin-right:10px" class="fa">&#xf044;</i></a>
+                        @if($value['active'] != 0)
+                            <a href="{{ route('admin.edit.user', ['id' => $value['id']]) }}"><i style="font-size:22px;margin-right:10px" class="fa">&#xf044;</i></a>
+                        @endif
                         <a href="{{ route('admin.delete.user', ['id' => $value['id']]) }}" onclick="return confirm('Bạn có muốn xóa khách hàng này ?')"><i style="font-size:22px;color:red" class="mdi mdi-delete"></i></a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        Bạn đang ở trên trang {{$users->currentPage()}}
-        <a style="font-size: 20px;margin-right: 20px;" href="{{$users->previousPageUrl()}}" id="previousPagebtn"> < </a>
-        <a style="font-size: 20px;" href="{{$users->nextPageUrl()}}" id="nextPagebtn"> > </a>
+       
+        <div class="pagination-wrapper" style="margin: 0 auto;display: table;"> {!! $users->fragment('foo')->links('pagination::bootstrap-4') !!} </div>
     </div>
 
 </div>
@@ -111,36 +124,4 @@
 
 @section('script')
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.form-check-input').click(function(){
-        var typeActive = $(this).val();
-        if (typeActive == "") {
-            $(".table").hide();
-        } else {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                method: "GET",
-                url: '/admin/ajax-active/'+typeActive+'',
-                data: {
-                    active: typeActive
-                },
-                success: function(data) {
-                    if(data != ""){
-                        $(".table").show();
-                        location.reload();
-                    }else{
-                        $(".table").hide();
-                    }
-                }
-            })
-        }
-    })
-    
-})
-</script>
 @endsection
