@@ -25,6 +25,7 @@
     .custom-switch.custom-switch-xl .custom-control-label::before {height: 2.5rem;width: calc(4rem + 0.75rem);border-radius: 5rem;}
     .custom-switch.custom-switch-xl .custom-control-label::after {width: calc(2.5rem - 4px); height: calc(2.5rem - 4px);border-radius: calc(4rem - (2.5rem / 2));}
     .custom-switch.custom-switch-xl .custom-control-input:checked ~ .custom-control-label::after {transform: translateX(calc(2.5rem - 0.25rem));}
+    .flickity-viewport{max-height: 300px!important;}
 </style>
 @section('page-breadcrum')
 <div class="page-breadcrumb">
@@ -90,10 +91,7 @@
                                 <p class="m-0 pt-1 font-size-14">Ngày sinh</p>
                             </div>
                             <div class="col-8">
-                                @php
-                                    $birth = date('Y-m-d', $user->birth);
-                                @endphp
-                                <input type="date" name="birth" value="{{ $user->birth ? $birth : null }}" placeholder="Ngày sinh " class="form-control form-control-line max-height-25">
+                                <input type="text" name="birth" value="{{ $user->birth }}" placeholder="Ngày sinh " class="form-control form-control-line max-height-25">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -224,6 +222,27 @@
                     <label class="custom-control-label" style="padding-top: 4px;" id="withDrawalTypeLabel" for="withDrawalType">{{ ( $user->withDrawalType == 1 ) ? 'Có thể rút tiền': 'Không thể rút tiền' }}</label>
                 </div>
             </div>
+
+            <h3 class="text-center mb-3 font-weight-bold">Admin Cộng trừ Tiền</h3>
+            <form action="{{ route('admin.update.user', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <p class="m-0 pt-1 font-size-14">Tổng tiền user : <span id="wallet">{{number_format($user->wallet)}}</span> VND</p>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-3">
+                        <p class="m-0 pt-1 font-size-14">Số tiền(+,-)</p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" name="wallet" value="" placeholder="VD:-1000000,+100000" class="form-control form-control-line max-height-25">
+                    </div>
+                    <div class="col text-center mt-3">
+                        <button class="btn btn-primary">Cập Nhập</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="col-md-4 shadow p-3 mr-4 mb-5 bg-white rounded">
             <h3 class="text-center mb-3 font-weight-bold">Hợp đồng vay</h3>
@@ -257,6 +276,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <h3 class="text-center mb-3 font-weight-bold">Hợp đồng vay</h3>
         </div>
 
         <div class="col-md-4 shadow p-3 mr-5 mb-5 bg-white rounded">
@@ -346,7 +366,6 @@
                     ("00" + date.getHours()).slice(-2) + ":" +
                     ("00" + date.getMinutes()).slice(-2) + ":" +
                     ("00" + date.getSeconds()).slice(-2);
-                    console.log(dateStr);
 
                     toastMessage('success', 'Xác nhận khoản vay thành công');
                     let html = `<tr>
@@ -355,6 +374,8 @@
                                     <td>${dateStr}</td>
                                 </tr>`;
                     $('.files').prepend(html);
+                    console.log(res.wallet);
+                    $('#wallet').text(res.wallet);
                 },
                 error: function(err){
                     toastMessage('error', 'Đã xảy ra lỗi vui lòng thử lại sau'); return false;

@@ -40,6 +40,7 @@ Route::get('admin/delete-user/{id}', [App\Http\Controllers\HomeController::class
 Route::post('/home',[App\Http\Controllers\HomeController::class, 'changePass'])->name('admin.change-pass');
 
 
+
 //loan contract
 Route::get('admin/contracts', [App\Http\Controllers\HomeController::class, 'contracts']);
 Route::get('admin/contract/update/{id}',[App\Http\Controllers\HomeController::class, 'editContract'])->name('admin.contract.edit');

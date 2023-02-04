@@ -160,6 +160,33 @@ class HomeController extends Controller
     {
         $user = User::findOrFail($id);
         $data = $request->all();
+        if(!empty($data['wallet'])){
+            if(is_numeric($data['wallet'])){
+                if($data['wallet'] > 0){
+                    History::create([
+                        'userId' => $id,
+                        'type' => 1,
+                        'value' =>  $data['wallet']
+                    ]);
+                    $data['wallet'] = $data['wallet'] + $user->wallet;
+                }else{
+                    $wallet = abs($data['wallet']);
+                    if($wallet > $user->wallet){
+                        return back()->with('error','Số tiền trừ không được lớn hơn số tiền hiện có'); 
+                    }else{
+                        History::create([
+                            'userId' => $id,
+                            'type' => 0,
+                            'value' =>  $data['wallet']
+                        ]);
+                        $data['wallet'] = $user->wallet - $wallet;
+                    }
+                }
+            }else{
+                return back()->with('error','Vui lòng nhập số'); 
+            }
+            
+        }
         if($user->update($data)){
             return back()->with('success','Cập nhập thành công');
         }
@@ -203,7 +230,7 @@ class HomeController extends Controller
             $wallet = $user->wallet +$contracts->loanValue;
             $dataUser = ['wallet'=> $wallet];
             $user->update($dataUser);
-            return ['status' => true];
+            return ['status' => true,'wallet' => $wallet];
         }
         return ['status' => false];
     }
